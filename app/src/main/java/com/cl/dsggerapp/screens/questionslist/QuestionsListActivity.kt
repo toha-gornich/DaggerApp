@@ -3,15 +3,7 @@ package com.cl.dsggerapp.screens.questionslist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cl.dsggerapp.Constants
-import com.cl.dsggerapp.R
 import com.cl.dsggerapp.networking.StackoverflowApi
 import com.cl.dsggerapp.questions.Question
 import com.cl.dsggerapp.screens.common.dialogs.ServerErrorDialogFragment
