@@ -11,25 +11,29 @@ import com.cl.dsggerapp.R
 import com.cl.dsggerapp.questions.Question
 import com.cl.dsggerapp.screens.common.viewsmvc.BaseViewMvc
 
-class QuestionsListViewMvc (
+class QuestionsListViewMvc(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?
-): BaseViewMvc<QuestionsListViewMvc.Listener>(layoutInflater, parent, R.layout.layout_questions_list) {
-    interface Listener{
+) : BaseViewMvc<QuestionsListViewMvc.Listener>(
+    layoutInflater,
+    parent,
+    R.layout.layout_questions_list
+) {
+    interface Listener {
         fun onRefreshClicked()
         fun onQuestionClicked(clickedQuestion: Question)
     }
+
     private val swipeRefresh: SwipeRefreshLayout = rootView.findViewById(R.id.swipeRefresh)
     private val recyclerView: RecyclerView
-    private val questionsAdapter:QuestionsAdapter
-
+    private val questionsAdapter: QuestionsAdapter
 
 
     init {
 
         // init pull-down-to-refresh
         swipeRefresh.setOnRefreshListener {
-            for(listener in listeners){
+            for (listener in listeners) {
                 listener.onRefreshClicked()
             }
         }
@@ -37,13 +41,14 @@ class QuestionsListViewMvc (
         // init recycler view
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        questionsAdapter = QuestionsAdapter {clickedQuestion->
-            for(listener in listeners){
+        questionsAdapter = QuestionsAdapter { clickedQuestion ->
+            for (listener in listeners) {
                 listener.onQuestionClicked(clickedQuestion)
             }
         }
         recyclerView.adapter = questionsAdapter
     }
+
     fun bindQuestion(questions: List<Question>) {
         questionsAdapter.bindData(questions)
 
@@ -58,7 +63,6 @@ class QuestionsListViewMvc (
             swipeRefresh.isRefreshing = false
         }
     }
-
 
 
     class QuestionsAdapter(

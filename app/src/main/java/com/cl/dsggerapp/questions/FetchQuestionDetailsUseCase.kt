@@ -1,14 +1,11 @@
 package com.cl.dsggerapp.questions
 
-import com.cl.dsggerapp.Constants
 import com.cl.dsggerapp.networking.StackoverflowApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchQuestionDetailsUseCase {
+class FetchQuestionDetailsUseCase(private val stackoverflowApi: StackoverflowApi) {
 
 
     sealed class Result {
@@ -16,12 +13,7 @@ class FetchQuestionDetailsUseCase {
         object Failure : Result()
     }
 
-    //init retrofit
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
+
 
 
     suspend fun fetchDetailQuestion(questionId: String?): Result {

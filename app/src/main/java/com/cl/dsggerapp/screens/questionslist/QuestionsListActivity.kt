@@ -3,11 +3,12 @@ package com.cl.dsggerapp.screens.questionslist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.cl.dsggerapp.MyApplication
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase.*
 import com.cl.dsggerapp.questions.Question
-import com.cl.dsggerapp.screens.common.dialogs.ServerErrorDialogFragment
-import com.cl.dsggerapp.screens.questiondetails.QuestionDetailsActivity
+import com.cl.dsggerapp.screens.common.ScreensNavigator
+import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -20,6 +21,9 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
 
 
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
+
+    private lateinit var screensNavigator: ScreensNavigator
 
     private var isDataLoaded = false
     private lateinit var viewMvc: QuestionsListViewMvc
@@ -30,9 +34,9 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
         viewMvc = QuestionsListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = FetchQuestionsUseCase()
-
-
+        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -48,7 +52,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
     }
 
     override fun onQuestionClicked(clickedQuestion: Question) {
-        QuestionDetailsActivity.start(this, clickedQuestion.id)
+        screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
 
     override fun onStop() {
@@ -78,9 +82,8 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
+
     }
 
 

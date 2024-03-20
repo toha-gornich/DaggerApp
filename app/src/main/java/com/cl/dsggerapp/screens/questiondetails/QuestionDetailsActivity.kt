@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.cl.dsggerapp.MyApplication
 import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
-import com.cl.dsggerapp.screens.common.dialogs.ServerErrorDialogFragment
+import com.cl.dsggerapp.screens.common.ScreensNavigator
+import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -21,6 +23,8 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsMvc.Listener
 
     private lateinit var questionId: String
     private lateinit var viewMvc: QuestionDetailsMvc
+    private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +37,11 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsMvc.Listener
         //retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
-        fetchQuestionDetailsUseCase = FetchQuestionDetailsUseCase()
+        fetchQuestionDetailsUseCase = (application as MyApplication).fetchQuestionDetailsUseCase
+
+
+        screensNavigator = ScreensNavigator(activity = this)
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
     }
 
     override fun onStart() {
@@ -74,9 +82,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsMvc.Listener
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
 
@@ -91,6 +97,6 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsMvc.Listener
     }
 
     override fun onBackClicked() {
-        onBackPressed()
+        screensNavigator.navigationBack()
     }
 }
