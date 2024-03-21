@@ -14,8 +14,6 @@ class FetchQuestionDetailsUseCase(private val stackoverflowApi: StackoverflowApi
     }
 
 
-
-
     suspend fun fetchDetailQuestion(questionId: String?): Result {
         return withContext(Dispatchers.IO) {
             try {

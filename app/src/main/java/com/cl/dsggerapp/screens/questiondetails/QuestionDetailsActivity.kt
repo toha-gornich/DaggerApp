@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cl.dsggerapp.MyApplication
 import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
 import com.cl.dsggerapp.screens.common.ScreensNavigator
+import com.cl.dsggerapp.screens.common.activities.BaseActivity
 import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 
-class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsMvc.Listener {
+class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -37,11 +38,11 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsMvc.Listener
         //retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
-        fetchQuestionDetailsUseCase = (application as MyApplication).fetchQuestionDetailsUseCase
+        fetchQuestionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
 
 
-        screensNavigator = ScreensNavigator(activity = this)
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = compositionRoot.screensNavigator
+        dialogsNavigator = compositionRoot.dialogsNavigator
     }
 
     override fun onStart() {

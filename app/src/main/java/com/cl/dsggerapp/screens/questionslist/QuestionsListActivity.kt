@@ -8,6 +8,7 @@ import com.cl.dsggerapp.questions.FetchQuestionsUseCase
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase.*
 import com.cl.dsggerapp.questions.Question
 import com.cl.dsggerapp.screens.common.ScreensNavigator
+import com.cl.dsggerapp.screens.common.activities.BaseActivity
 import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 
-class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener {
+class QuestionsListActivity : BaseActivity(), QuestionsListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -34,8 +35,8 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
         viewMvc = QuestionsListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
+        dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = ScreensNavigator(this)
     }
 
