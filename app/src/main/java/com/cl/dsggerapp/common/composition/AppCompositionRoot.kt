@@ -1,12 +1,8 @@
 package com.cl.dsggerapp.common.composition
 
-import android.app.Activity
 import androidx.annotation.UiThread
 import com.cl.dsggerapp.Constants
 import com.cl.dsggerapp.networking.StackoverflowApi
-import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
-import com.cl.dsggerapp.questions.FetchQuestionsUseCase
-import com.cl.dsggerapp.screens.common.ScreensNavigator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -40,8 +36,4 @@ class AppCompositionRoot {
 
 //    private val stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
-
-    fun screensNavigator(activity: Activity): ScreensNavigator{
-        return ScreensNavigator(activity)
-    }
 }

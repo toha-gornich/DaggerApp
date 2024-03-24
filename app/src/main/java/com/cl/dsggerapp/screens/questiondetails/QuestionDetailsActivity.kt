@@ -3,9 +3,6 @@ package com.cl.dsggerapp.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import com.cl.dsggerapp.MyApplication
 import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
 import com.cl.dsggerapp.screens.common.ScreensNavigator
 import com.cl.dsggerapp.screens.common.activities.BaseActivity
@@ -16,14 +13,14 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 
-class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
+class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 
     private lateinit var questionId: String
-    private lateinit var viewMvc: QuestionDetailsMvc
+    private lateinit var viewMvc: QuestionDetailsViewMvc
     private lateinit var dialogsNavigator: DialogsNavigator
     private lateinit var screensNavigator: ScreensNavigator
 
@@ -31,7 +28,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewMvc = QuestionDetailsMvc(LayoutInflater.from(this), null)
+        viewMvc = compositionRoot.viewMvcFactory.newQuestionDetailsViewMvc( null)
         setContentView(viewMvc.rootView)
 
 

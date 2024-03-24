@@ -1,12 +1,8 @@
 package com.cl.dsggerapp.common.composition
 
-import android.app.Activity
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
-import com.cl.dsggerapp.questions.FetchQuestionsUseCase
 import com.cl.dsggerapp.screens.common.ScreensNavigator
-import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
 
 class ActivityCompositionRoot(
     private val activity: AppCompatActivity,
@@ -17,11 +13,11 @@ class ActivityCompositionRoot(
         ScreensNavigator(activity)
     }
 
-    private val fragmentManager = activity.supportFragmentManager
-    val dialogsNavigator get() = DialogsNavigator(fragmentManager)
+    val fragmentManager = activity.supportFragmentManager
 
-    private val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
-    val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
-    val fetchQuestionDetailsUseCase get() = FetchQuestionDetailsUseCase(stackoverflowApi)
+    val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
+
+    val layoutInflater: LayoutInflater get() = LayoutInflater.from(activity)
+
 
 }

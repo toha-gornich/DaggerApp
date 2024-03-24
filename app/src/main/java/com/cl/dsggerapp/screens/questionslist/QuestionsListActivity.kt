@@ -1,9 +1,6 @@
 package com.cl.dsggerapp.screens.questionslist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import com.cl.dsggerapp.MyApplication
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase.*
 import com.cl.dsggerapp.questions.Question
@@ -32,7 +29,7 @@ class QuestionsListActivity : BaseActivity(), QuestionsListViewMvc.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewMvc = QuestionsListViewMvc(LayoutInflater.from(this), null)
+        viewMvc = compositionRoot.viewMvcFactory.newQuestionsListViewMvc( null)
         setContentView(viewMvc.rootView)
 
         fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase

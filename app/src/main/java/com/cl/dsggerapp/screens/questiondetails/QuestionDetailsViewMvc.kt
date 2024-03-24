@@ -10,8 +10,8 @@ import com.cl.dsggerapp.R
 import com.cl.dsggerapp.screens.common.toolbar.MyToolbar
 import com.cl.dsggerapp.screens.common.viewsmvc.BaseViewMvc
 
-class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
-    BaseViewMvc<QuestionDetailsMvc.Listener>(layoutInflater, parent, R.layout.layout_question_details) {
+class QuestionDetailsViewMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
+    BaseViewMvc<QuestionDetailsViewMvc.Listener>(layoutInflater, parent, R.layout.layout_question_details) {
     interface Listener{
         fun onBackClicked()
     }
