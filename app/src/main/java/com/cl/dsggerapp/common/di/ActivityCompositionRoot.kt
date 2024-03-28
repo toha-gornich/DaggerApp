@@ -1,4 +1,4 @@
-package com.cl.dsggerapp.common.composition
+package com.cl.dsggerapp.common.di
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,8 @@ class ActivityCompositionRoot(
         ScreensNavigator(activity)
     }
 
+    val application get() = appCompositionRoot.application
+    
     val fragmentManager = activity.supportFragmentManager
 
     val stackoverflowApi get() = appCompositionRoot.stackoverflowApi

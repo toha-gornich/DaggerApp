@@ -1,4 +1,4 @@
-package com.cl.dsggerapp.common.composition
+package com.cl.dsggerapp.common.di
 
 import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase

@@ -1,5 +1,6 @@
 package com.cl.dsggerapp.screens.questionslist
 
+import Service
 import android.os.Bundle
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase
 import com.cl.dsggerapp.questions.FetchQuestionsUseCase.*
@@ -7,6 +8,7 @@ import com.cl.dsggerapp.questions.Question
 import com.cl.dsggerapp.screens.common.ScreensNavigator
 import com.cl.dsggerapp.screens.common.activities.BaseActivity
 import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
+import com.cl.dsggerapp.screens.common.viewsmvc.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -17,24 +19,21 @@ class QuestionsListActivity : BaseActivity(), QuestionsListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
+    @field:Service private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-
-    private lateinit var screensNavigator: ScreensNavigator
+    private lateinit var viewMvc: QuestionsListViewMvc
 
     private var isDataLoaded = false
-    private lateinit var viewMvc: QuestionsListViewMvc
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewMvc = compositionRoot.viewMvcFactory.newQuestionsListViewMvc( null)
+        injector.inject(this)
+        viewMvc = viewMvcFactory.newQuestionsListViewMvc( null)
         setContentView(viewMvc.rootView)
-
-        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {

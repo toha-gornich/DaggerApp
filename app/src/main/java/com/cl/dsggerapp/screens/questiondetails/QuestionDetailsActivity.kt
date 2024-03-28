@@ -1,5 +1,6 @@
 package com.cl.dsggerapp.screens.questiondetails
 
+import Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import com.cl.dsggerapp.questions.FetchQuestionDetailsUseCase
 import com.cl.dsggerapp.screens.common.ScreensNavigator
 import com.cl.dsggerapp.screens.common.activities.BaseActivity
 import com.cl.dsggerapp.screens.common.dialogs.DialogsNavigator
+import com.cl.dsggerapp.screens.common.viewsmvc.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -17,29 +19,23 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    @field:Service private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+
+    private lateinit var viewMvc: QuestionDetailsViewMvc
 
     private lateinit var questionId: String
-    private lateinit var viewMvc: QuestionDetailsViewMvc
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewMvc = compositionRoot.viewMvcFactory.newQuestionDetailsViewMvc( null)
+        injector.inject(this)
+        viewMvc = viewMvcFactory.newQuestionDetailsViewMvc( null)
         setContentView(viewMvc.rootView)
-
-
         //retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
-
-        fetchQuestionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
-
-
-        screensNavigator = compositionRoot.screensNavigator
-        dialogsNavigator = compositionRoot.dialogsNavigator
     }
 
     override fun onStart() {

@@ -1,5 +1,6 @@
-package com.cl.dsggerapp.common.composition
+package com.cl.dsggerapp.common.di
 
+import android.app.Application
 import androidx.annotation.UiThread
 import com.cl.dsggerapp.Constants
 import com.cl.dsggerapp.networking.StackoverflowApi
@@ -8,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 @UiThread
-class AppCompositionRoot {
+class AppCompositionRoot(val application: Application) {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
