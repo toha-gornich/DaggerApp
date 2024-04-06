@@ -1,7 +1,7 @@
 package com.cl.daggerapp.di
 
 import Service
-import com.cl.daggerapp.di.PresentationCompositionRoot
+import com.cl.daggerapp.di.presentation.PresentationComponent
 import java.lang.reflect.Field
 import com.cl.daggerapp.questions.FetchQuestionDetailsUseCase
 import com.cl.daggerapp.questions.FetchQuestionsUseCase
@@ -9,7 +9,7 @@ import com.cl.daggerapp.screens.common.ScreensNavigator
 import com.cl.daggerapp.screens.common.dialogs.DialogsNavigator
 import com.cl.daggerapp.screens.common.viewsmvc.ViewMvcFactory
 
-class Injector(private val compositionRoot: PresentationCompositionRoot) {
+class Injector(private val component: PresentationComponent) {
 
     fun inject(client: Any) {
         for (field in getAllFields(client)) {
@@ -44,19 +44,19 @@ class Injector(private val compositionRoot: PresentationCompositionRoot) {
     private fun getServiceForClass(type: Class<*>): Any {
         when (type) {
             DialogsNavigator::class.java -> {
-                return compositionRoot.dialogsNavigator
+                return component.dialogsNavigator()
             }
             ScreensNavigator::class.java -> {
-                return compositionRoot.screensNavigator
+                return component.screensNavigator()
             }
             FetchQuestionsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionsUseCase
+                return component.fetchQuestionsUseCase()
             }
             FetchQuestionDetailsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionDetailsUseCase
+                return component.fetchQuestionDetailsUseCase()
             }
             ViewMvcFactory::class.java -> {
-                return compositionRoot.viewMvcFactory
+                return component.viewMvcFactory()
             }
             else -> {
                 throw Exception("unsupported service type: $type")
