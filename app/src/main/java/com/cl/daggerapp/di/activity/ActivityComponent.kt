@@ -1,22 +1,12 @@
 package com.cl.daggerapp.di.activity
 
-import android.app.Application
-import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import com.cl.daggerapp.di.app.AppComponent
-import com.cl.daggerapp.networking.StackoverflowApi
-import com.cl.daggerapp.screens.common.ScreensNavigator
-import dagger.Component
+import com.cl.daggerapp.di.presentation.PresentationComponent
+import com.cl.daggerapp.di.presentation.PresentationModule
+import dagger.Subcomponent
 
 @ActivityScope
-@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
+@Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
+    fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
 
-    fun activity():AppCompatActivity
-    fun application():Application
-    fun fragmentManager():FragmentManager
-    fun stackoverflowApi():StackoverflowApi
-    fun layoutInflater(): LayoutInflater
-    fun screensNavigator():ScreensNavigator
 }

@@ -1,7 +1,7 @@
 package com.cl.daggerapp.di.app
 
-import android.app.Application
-import com.cl.daggerapp.networking.StackoverflowApi
+import com.cl.daggerapp.di.activity.ActivityComponent
+import com.cl.daggerapp.di.activity.ActivityModule
 import dagger.Component
 
 
@@ -9,7 +9,5 @@ import dagger.Component
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun application():Application
-
-    fun stackoverflowApi():StackoverflowApi
+    fun newActivityComponent(activityModule: ActivityModule):ActivityComponent
 }

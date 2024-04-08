@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @UiThread
 @Module
-class AppModule(val application: Application) {
+class AppModule(private val application: Application) {
 
     @Provides
     @AppScope
