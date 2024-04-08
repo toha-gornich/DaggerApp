@@ -2,7 +2,6 @@ package com.cl.daggerapp.di.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
-import com.cl.daggerapp.di.activity.ActivityComponent
 import com.cl.daggerapp.networking.StackoverflowApi
 import com.cl.daggerapp.questions.FetchQuestionDetailsUseCase
 import com.cl.daggerapp.questions.FetchQuestionsUseCase
@@ -12,21 +11,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(private val activityComponent: ActivityComponent) {
-    @Provides
-    fun layoutInflater() = activityComponent.layoutInflater()
-
-    @Provides
-    fun fragmentManager() = activityComponent.fragmentManager()
-
-    @Provides
-    fun activity() = activityComponent.activity()
-    @Provides
-    fun stackoverflowApi() = activityComponent.stackoverflowApi()
-
-    @Provides
-    fun screensNavigator() = activityComponent.screensNavigator()
-
+class PresentationModule {
     @Provides
     fun dialogsNavigator(fragmentManager: FragmentManager) = DialogsNavigator(fragmentManager)
 

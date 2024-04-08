@@ -8,7 +8,7 @@ import com.cl.daggerapp.di.activity.DaggerActivityComponent
 import com.cl.daggerapp.di.presentation.DaggerPresentationComponent
 import com.cl.daggerapp.di.presentation.PresentationModule
 
-open class BaseActivity: AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
     private val appCompositionRoot get() = (application as MyApplication).appComponent
 
@@ -19,8 +19,10 @@ open class BaseActivity: AppCompatActivity() {
     }
 
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .presentationModule(PresentationModule(activityComponent))
+        DaggerPresentationComponent
+            .builder()
+            .activityComponent(activityComponent)
+            .presentationModule(PresentationModule())
             .build()
     }
 
