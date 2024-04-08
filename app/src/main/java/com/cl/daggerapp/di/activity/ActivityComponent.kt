@@ -4,12 +4,13 @@ import android.app.Application
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.cl.daggerapp.di.app.AppComponent
 import com.cl.daggerapp.networking.StackoverflowApi
 import com.cl.daggerapp.screens.common.ScreensNavigator
 import dagger.Component
 
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
 
     fun activity():AppCompatActivity
