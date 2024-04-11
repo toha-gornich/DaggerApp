@@ -3,9 +3,10 @@ package com.cl.daggerapp.questions
 import com.cl.daggerapp.networking.StackoverflowApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchQuestionDetailsUseCase(private val stackoverflowApi: StackoverflowApi) {
+class FetchQuestionDetailsUseCase @Inject constructor(private val stackoverflowApi: StackoverflowApi) {
 
 
     sealed class Result {
