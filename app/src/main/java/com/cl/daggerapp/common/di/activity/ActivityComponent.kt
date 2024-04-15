@@ -1,6 +1,6 @@
-package com.cl.daggerapp.di.activity
+package com.cl.daggerapp.common.di.activity
 
-import com.cl.daggerapp.di.presentation.PresentationComponent
+import com.cl.daggerapp.common.di.presentation.PresentationComponent
 import dagger.Subcomponent
 
 @ActivityScope

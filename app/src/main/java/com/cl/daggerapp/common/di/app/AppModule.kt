@@ -1,4 +1,4 @@
-package com.cl.daggerapp.di.app
+package com.cl.daggerapp.common.di.app
 
 import android.app.Application
 import androidx.annotation.UiThread

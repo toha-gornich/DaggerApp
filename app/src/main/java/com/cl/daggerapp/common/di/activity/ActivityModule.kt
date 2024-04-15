@@ -1,4 +1,4 @@
-package com.cl.daggerapp.di.activity
+package com.cl.daggerapp.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
