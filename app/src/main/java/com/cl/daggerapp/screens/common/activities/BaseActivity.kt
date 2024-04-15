@@ -2,18 +2,20 @@ package com.cl.daggerapp.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.cl.daggerapp.MyApplication
-import com.cl.daggerapp.di.ActivityCompositionRoot
-import com.cl.daggerapp.di.Injector
-import com.cl.daggerapp.di.PresentationCompositionRoot
+import com.cl.daggerapp.di.activity.ActivityModule
 
 open class BaseActivity : AppCompatActivity() {
 
+    private val appCompositionRoot get() = (application as MyApplication).appComponent
 
-    private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
-    private val activityCompositionRoot by lazy { ActivityCompositionRoot(this, appCompositionRoot) }
-    private val compositionRoot by lazy { PresentationCompositionRoot(activityCompositionRoot)}
+    private val activityComponent by lazy {
+        appCompositionRoot.newActivityComponent(ActivityModule(this))
+    }
+//    There is a convention where it can be issued
+    private val presentationComponent by lazy {
+        activityComponent.newPresentationComponent()
+    }
 
-    protected val injector get() = Injector(compositionRoot)
-
+    protected val injector get() = presentationComponent
 
 }

@@ -1,26 +1,35 @@
-package com.cl.daggerapp.di
+package com.cl.daggerapp.di.app
 
 import android.app.Application
 import androidx.annotation.UiThread
 import com.cl.daggerapp.Constants
 import com.cl.daggerapp.networking.StackoverflowApi
+import dagger.Module
+import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 @UiThread
-class AppCompositionRoot(val application: Application) {
+@Module
+class AppModule(private val application: Application) {
 
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
+    @Provides
+    @AppScope
+    fun retrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    val stackoverflowApi:StackoverflowApi by lazy {
+    @Provides
+    fun application() = application
+
+    @AppScope
+    @Provides
+    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi =
         retrofit.create(StackoverflowApi::class.java)
-    }
 //    this same initialisation. Using backing property
 //    private var _retrofit: Retrofit? = null
 //    private val retrofit: Retrofit =

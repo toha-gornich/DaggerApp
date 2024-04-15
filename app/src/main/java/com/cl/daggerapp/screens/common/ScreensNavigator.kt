@@ -1,9 +1,12 @@
 package com.cl.daggerapp.screens.common
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import com.cl.daggerapp.di.activity.ActivityScope
 import com.cl.daggerapp.screens.questiondetails.QuestionDetailsActivity
+import javax.inject.Inject
 
-class ScreensNavigator(private val activity: Activity) {
+@ActivityScope
+class ScreensNavigator @Inject constructor(private val activity: AppCompatActivity) {
 
 
     fun navigationBack() {

@@ -1,13 +1,18 @@
 package com.cl.daggerapp
 
 import android.app.Application
-import com.cl.daggerapp.di.AppCompositionRoot
+import com.cl.daggerapp.di.app.AppComponent
+import com.cl.daggerapp.di.app.AppModule
+import com.cl.daggerapp.di.app.DaggerAppComponent
 
 
 class MyApplication: Application() {
-    lateinit var appCompositionRoot:AppCompositionRoot
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
+    }
     override fun onCreate() {
-        appCompositionRoot = AppCompositionRoot(this)
         super.onCreate()
     }
 
