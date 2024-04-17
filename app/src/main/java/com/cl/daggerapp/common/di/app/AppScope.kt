@@ -1,4 +1,4 @@
-package com.cl.daggerapp.di.app
+package com.cl.daggerapp.common.di.app
 @AppScope
 annotation class AppScope {
 }

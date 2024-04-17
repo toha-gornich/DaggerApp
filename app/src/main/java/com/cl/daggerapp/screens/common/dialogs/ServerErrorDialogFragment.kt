@@ -3,10 +3,9 @@ package com.cl.daggerapp.screens.common.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import com.cl.daggerapp.R
 
-class ServerErrorDialogFragment : DialogFragment(){
+class ServerErrorDialogFragment : BaseDialog(){
 
     override fun onCreateDialog(savedInstanceState: Bundle?):Dialog{
         return AlertDialog.Builder(activity).let{

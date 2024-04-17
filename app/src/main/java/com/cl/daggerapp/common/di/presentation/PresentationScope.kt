@@ -1,4 +1,4 @@
-package com.cl.daggerapp.di.presentation
+package com.cl.daggerapp.common.di.presentation
 
 import javax.inject.Scope
 

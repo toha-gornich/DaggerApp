@@ -1,4 +1,4 @@
-package com.cl.daggerapp.di.presentation
+package com.cl.daggerapp.common.di.presentation
 
 import com.cl.daggerapp.screens.questiondetails.QuestionDetailsActivity
 import com.cl.daggerapp.screens.questionslist.QuestionsListActivity
