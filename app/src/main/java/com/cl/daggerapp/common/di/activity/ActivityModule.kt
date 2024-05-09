@@ -2,25 +2,23 @@ package com.cl.daggerapp.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.cl.daggerapp.screens.common.ScreensNavigator
+import com.cl.daggerapp.screens.common.ScreensNavigatorImpl
 import dagger.Module
 import dagger.Provides
 
 
 @Module
-class ActivityModule(private val activity: AppCompatActivity) {
-
+object ActivityModule {
+    @ActivityScope
+    @Provides
+    fun screensNavigator(activity: AppCompatActivity):ScreensNavigator = ScreensNavigatorImpl(activity)
 
     @Provides
-    fun activity() = activity
-
-
-    @Provides
-    fun fragmentManager() = activity.supportFragmentManager
-
+    fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
 
     @Provides
-
-    fun layoutInflater(): LayoutInflater = LayoutInflater.from(activity)
-
+    fun layoutInflater(activity: AppCompatActivity): LayoutInflater =
+        LayoutInflater.from(activity)
 
 }
