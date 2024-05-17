@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 
 }
 
@@ -32,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+//    ksp {
+//        correctErrorTypes true
+//    }
 }
 
 dependencies {
@@ -52,8 +56,11 @@ dependencies {
     implementation libs.retrofit
     implementation libs.retrofit.gson
 
-    implementation libs.dagger
-    ksp(libs.dagger.compiler)
+
+    implementation libs.hilt
+    ksp (libs.hilt.compiler)
+
+
 
 
 }

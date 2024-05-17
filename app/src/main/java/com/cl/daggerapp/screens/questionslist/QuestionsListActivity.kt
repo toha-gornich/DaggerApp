@@ -8,6 +8,7 @@ import com.cl.daggerapp.screens.common.ScreensNavigator
 import com.cl.daggerapp.screens.common.activities.BaseActivity
 import com.cl.daggerapp.screens.common.dialogs.DialogsNavigator
 import com.cl.daggerapp.screens.common.viewsmvc.ViewMvcFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -15,6 +16,7 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class QuestionsListActivity : BaseActivity(), QuestionsListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)

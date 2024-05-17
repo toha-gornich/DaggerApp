@@ -6,16 +6,20 @@ import com.cl.daggerapp.Constants
 import com.cl.daggerapp.networking.StackoverflowApi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 
-@UiThread
 @Module
+@InstallIn(SingletonComponent::class)
 class AppModule(private val application: Application) {
 
     @Provides
     @AppScope
+
     fun retrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -23,8 +27,7 @@ class AppModule(private val application: Application) {
             .build()
     }
 
-    @Provides
-    fun application() = application
+ 
 
     @AppScope
     @Provides
